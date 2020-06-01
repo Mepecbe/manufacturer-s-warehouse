@@ -14,6 +14,7 @@ namespace BDiSUBD.Forms
 {
     public partial class WarehouseBrowser : MetroFramework.Forms.MetroForm
     {
+        Random rnd = new Random();
         string warehouseId = "";
 
         public WarehouseBrowser(string warehouseId)
@@ -33,10 +34,10 @@ namespace BDiSUBD.Forms
                 while (reader.Read())
                 {
                     ListViewItem item = TovarsListView.Items.Add(reader[2].ToString());
+
                     item.SubItems.Add(reader[1].ToString());
                     item.SubItems.Add(reader[3].ToString());
                     item.SubItems.Add(reader[4].ToString());
-                    TovarsListView.Columns[0].Width = 30;
                 }
 
                 reader.Close();
@@ -54,6 +55,7 @@ namespace BDiSUBD.Forms
                     item.SubItems.Add(reader[4].ToString());
                     item.SubItems.Add(reader[5].ToString());
                     item.SubItems.Add(reader[6].ToString());
+                    item.SubItems.Add(reader[7].ToString());
                 }
 
                 reader.Close();
@@ -70,6 +72,7 @@ namespace BDiSUBD.Forms
                     item.SubItems.Add(reader[4].ToString());
                     item.SubItems.Add(reader[5].ToString());
                     item.SubItems.Add(reader[6].ToString());
+                    item.SubItems.Add(reader[7].ToString());
                 }
 
                 reader.Close();
@@ -81,6 +84,7 @@ namespace BDiSUBD.Forms
                 while (reader.Read())
                 {
                     ListViewItem item = WarehouseCell.Items.Add(reader[1].ToString());
+                    item.SubItems.Add($"{reader[2].ToString()}-{reader[3].ToString()}-{reader[4].ToString()}-{reader[5].ToString()}-{reader[6].ToString()}");
                     item.SubItems.Add(reader[2].ToString());
                     item.SubItems.Add(reader[3].ToString());
                     item.SubItems.Add(reader[4].ToString());
@@ -114,10 +118,77 @@ namespace BDiSUBD.Forms
 
         private void UpdateCellSize()
         {
-            for (int a = 0; a < InputInvoices.Columns.Count; a++) InputInvoices.Columns[a].Width = InputInvoices.Width / InputInvoices.Columns.Count;
-            for (int a = 0; a < OutputListView.Columns.Count; a++) OutputListView.Columns[a].Width = OutputListView.Width / OutputListView.Columns.Count;
-            for (int a = 0; a < TovarsListView.Columns.Count; a++) TovarsListView.Columns[a].Width = TovarsListView.Width / TovarsListView.Columns.Count;
-            for (int a = 0; a < WarehouseCell.Columns.Count; a++) WarehouseCell.Columns[a].Width = WarehouseCell.Width / WarehouseCell.Columns.Count;
+            for (int a = 0; a < InputInvoices.Columns.Count; a++) 
+                InputInvoices.Columns[a].Width = InputInvoices.Width / InputInvoices.Columns.Count;
+
+            for (int a = 0; a < OutputListView.Columns.Count; a++) 
+                OutputListView.Columns[a].Width = OutputListView.Width / OutputListView.Columns.Count;
+
+            for (int a = 0; a < TovarsListView.Columns.Count; a++) 
+                TovarsListView.Columns[a].Width = TovarsListView.Width / TovarsListView.Columns.Count;
+
+            for (int a = 0; a < WarehouseCell.Columns.Count; a++) 
+                WarehouseCell.Columns[a].Width = WarehouseCell.Width / WarehouseCell.Columns.Count;
+        }
+
+        private void добавитьСкладскуюЯчейкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WarehouseAddCell FormAddCell = new WarehouseAddCell(this);
+            FormAddCell.ShowDialog();
+
+            if (FormAddCell.OkClick)
+            {
+                ListViewItem item = this.WarehouseCell.Items.Add(FormAddCell.IdTextBox.Text);
+                item.SubItems.Add(FormAddCell.FullCellAddress.Text);
+                item.SubItems.Add(FormAddCell.SectionTextBox.Text);
+                item.SubItems.Add(FormAddCell.LineTextBox.Text);
+                item.SubItems.Add(FormAddCell.RackTextBox.Text);
+                item.SubItems.Add(FormAddCell.TierTextBox.Text);
+                item.SubItems.Add(FormAddCell.PositionTextBox.Text);
+            }
+
+            {
+                //Добавление в БД
+                MySqlConnection conn = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+                try
+                {
+                    conn.Open();
+                    new MySqlCommand($"INSERT INTO WarehouseCell VALUES ('{warehouseId}', '{FormAddCell.IdTextBox.Text}', '{FormAddCell.SectionTextBox.Text}', '{FormAddCell.LineTextBox.Text}', '{FormAddCell.RackTextBox.Text}', '{FormAddCell.TierTextBox.Text}', '{FormAddCell.PositionTextBox.Text}')", conn).ExecuteNonQuery();
+                    conn.Close();
+                }
+                catch(Exception ex)
+                {
+                    MetroFramework.MetroMessageBox.Show(this, $"Произошла ошибка\n{ex.Message}", "Ошибка");
+                }
+            }
+        }
+
+        public string genId(byte len)
+        {
+            string retId = "";
+
+            for (int n = 0; n < len; n++) 
+                retId += Encoding.ASCII.GetChars(new byte[] { rnd.Next(0,2) == 0 ? (byte)rnd.Next(48,58) : (byte)rnd.Next(97,123) })[0];
+
+            return retId;
+        }
+
+        private void удалитьСкладскуюЯчейкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WarehouseCell.SelectedItems.Count == 0) return;
+
+            MySqlConnection conn = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+            try
+            {
+                conn.Open();
+                new MySqlCommand($"DELETE FROM WarehouseCell WHERE ID = '{WarehouseCell.SelectedItems[0].SubItems[0].Text}'", conn).ExecuteNonQuery();
+                WarehouseCell.SelectedItems[0].Remove();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, $"Произошла ошибка\n{ex.Message}", "Ошибка");
+            }
         }
     }
 }
