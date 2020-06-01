@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using MySql.Data.MySqlClient;
 
+using BDiSUBD.Forms;
+
 //Программное средство учёта бытовой техники на складе производителя
 //server=localhost;database=testDB;uid=root;pwd=abc123;";
 
@@ -17,7 +19,7 @@ namespace BDiSUBD
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
-        string connString = "server=2.57.184.157;database=sklad;uid=admin_sklad;pwd=1234;";
+        string warehouseId = "";
 
         public Form1()
         {
@@ -26,11 +28,34 @@ namespace BDiSUBD
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(Properties.Resources.MySqlConnectionString); conn.Open();
+                MySqlDataReader reader = new MySqlCommand($"SELECT * FROM manufacturer_warehouses;", conn).ExecuteReader();
 
+                while (reader.Read())
+                {
+                    Storehouse.Items.Add(reader[2].ToString());
+                }
+                
+                reader.Close();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка подключения");
+            }
         }
 
         private void metroButton1_Click_1(object sender, EventArgs e)
         {
+            if(Storehouse.Text.Length < 2)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Необходимо выбрать склад", "Внимание");
+                return;
+            }
+
+
             bool Auth = false;
 
             try
@@ -46,8 +71,20 @@ namespace BDiSUBD
                         break;
                     }
                 }
-
+                               
                 reader.Close();
+
+                if (Auth)
+                {
+                    //Если авторизация успешна, получаем АЙДИ выбранного склада
+                    MySqlDataReader r = new MySqlCommand($"SELECT * FROM manufacturer_warehouses WHERE Name = '{Storehouse.Text}';", conn).ExecuteReader();
+                    if (r.Read())
+                    {
+                        warehouseId = r[0].ToString();
+                    }
+                    r.Close(); 
+                }
+
                 conn.Close();
             }
             catch(Exception ex)
@@ -55,8 +92,11 @@ namespace BDiSUBD
                 MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка подключения");
             }
 
-            if (Auth)            
-                MetroFramework.MetroMessageBox.Show(this, "Подключение успешно", "Подключение");
+            if (Auth)
+            {
+                this.Visible = false;
+                new WarehouseBrowser(warehouseId).Show();
+            }
             else
                 MetroFramework.MetroMessageBox.Show(this, "Подключение не успешно", "Подключение");
         }

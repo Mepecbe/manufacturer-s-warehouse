@@ -117,8 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MySqlConnectionString" xml:space="preserve">
-    <value>server=2.57.184.157;database=sklad;uid=admin_sklad;pwd=1234;charset=utf8;</value>
-    <comment>Строка подключения к базе данных mySql </comment>
-  </data>
 </root>

@@ -61,7 +61,7 @@ namespace BDiSUBD.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на server=2.57.184.157;database=sklad;uid=admin_sklad;pwd=1234;.
+        ///   Ищет локализованную строку, похожую на server=2.57.184.157;database=sklad;uid=admin_sklad;pwd=1234;charset=utf8;.
         /// </summary>
         internal static string MySqlConnectionString {
             get {
