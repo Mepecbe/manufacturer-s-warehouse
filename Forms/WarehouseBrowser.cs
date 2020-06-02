@@ -241,6 +241,7 @@ namespace BDiSUBD.Forms
                     item.SubItems.Add(AddForm.CountTextBox.Text);
                     item.SubItems.Add(DateTime.Now.ToString());
                     item.SubItems.Add(FIO);
+                    item.SubItems.Add("");
                 }
             }
             catch(Exception ex)
@@ -285,7 +286,17 @@ namespace BDiSUBD.Forms
                 {
                     //Добавляем в таблицу товаров на складе
                     new MySqlCommand($"INSERT INTO technique VALUES ('{genId(10)}', '{CloseInvoiceForm.metroComboBox1.Text}', '{InputInvoices.SelectedItems[0].SubItems[1].Text}', '{InputInvoices.SelectedItems[0].SubItems[2].Text}', '{InputInvoices.SelectedItems[0].SubItems[3].Text}')", connection).ExecuteNonQuery();
+                }
+
+                {
+                    //Изменяем запись
                     InputInvoices.SelectedItems[0].SubItems[6].Text = FIO;
+
+                    //Добавляем в лист товаров
+                    ListViewItem item = TovarsListView.Items.Add(InputInvoices.SelectedItems[0].SubItems[1].Text);
+                    item.SubItems.Add(CloseInvoiceForm.metroComboBox1.Text);
+                    item.SubItems.Add(InputInvoices.SelectedItems[0].SubItems[2].Text);
+                    item.SubItems.Add(InputInvoices.SelectedItems[0].SubItems[3].Text);
                 }
 
                 connection.Close();
