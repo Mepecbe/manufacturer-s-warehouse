@@ -67,6 +67,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddInputInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddInputInvoice.Designer.cs">
+      <DependentUpon>AddInputInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CloseInputInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloseInputInvoice.Designer.cs">
+      <DependentUpon>CloseInputInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WarehouseAddCell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +95,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddInputInvoice.resx">
+      <DependentUpon>AddInputInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CloseInputInvoice.resx">
+      <DependentUpon>CloseInputInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WarehouseAddCell.resx">
       <DependentUpon>WarehouseAddCell.cs</DependentUpon>

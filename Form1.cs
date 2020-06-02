@@ -57,6 +57,7 @@ namespace BDiSUBD
 
 
             bool Auth = false;
+            string fio = "";
 
             try
             {
@@ -68,6 +69,7 @@ namespace BDiSUBD
                     if(reader[5].ToString() == PasswordTextBox.Text)
                     {
                         Auth = true;
+                        fio = reader[1].ToString();
                         break;
                     }
                 }
@@ -77,7 +79,7 @@ namespace BDiSUBD
                 if (Auth)
                 {
                     //Если авторизация успешна, получаем АЙДИ выбранного склада
-                    MySqlDataReader r = new MySqlCommand($"SELECT * FROM manufacturer_warehouses WHERE Name = '{Storehouse.Text}';", conn).ExecuteReader();
+                    MySqlDataReader r = new MySqlCommand($"SELECT ID FROM manufacturer_warehouses WHERE Name = '{Storehouse.Text}';", conn).ExecuteReader();
                     if (r.Read())
                     {
                         warehouseId = r[0].ToString();
@@ -95,7 +97,7 @@ namespace BDiSUBD
             if (Auth)
             {
                 this.Visible = false;
-                new WarehouseBrowser(warehouseId).Show();
+                new WarehouseBrowser(warehouseId, fio).Show();
             }
             else
                 MetroFramework.MetroMessageBox.Show(this, "Подключение не успешно", "Подключение");

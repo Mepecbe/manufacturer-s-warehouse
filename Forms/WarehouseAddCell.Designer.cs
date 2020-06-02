@@ -108,7 +108,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(70, 237);
+            this.metroLabel4.Location = new System.Drawing.Point(70, 233);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(37, 19);
             this.metroLabel4.TabIndex = 4;
@@ -117,7 +117,7 @@
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(70, 275);
+            this.metroLabel5.Location = new System.Drawing.Point(70, 271);
             this.metroLabel5.Name = "metroLabel5";
             this.metroLabel5.Size = new System.Drawing.Size(63, 19);
             this.metroLabel5.TabIndex = 5;
@@ -305,7 +305,7 @@
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(70, 126);
+            this.metroLabel6.Location = new System.Drawing.Point(70, 122);
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(54, 19);
             this.metroLabel6.TabIndex = 13;
@@ -361,6 +361,8 @@
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.IdTextBox);
             this.Controls.Add(this.metroLabel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "WarehouseAddCell";
             this.Resizable = false;
             this.Text = "Добавление складской ячейки";

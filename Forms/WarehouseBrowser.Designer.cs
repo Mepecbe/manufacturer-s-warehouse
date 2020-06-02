@@ -66,6 +66,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.WarehouseCell = new MetroFramework.Controls.MetroListView();
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -75,7 +76,6 @@
             this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -95,7 +95,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 3;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -236,19 +236,21 @@
             this.перенестиНакладнуюВАрхивToolStripMenuItem});
             this.inputInvoicesContextMenu.Name = "contextMenuStrip1";
             this.inputInvoicesContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(257, 70);
+            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(257, 92);
             // 
             // добавитьПриходнуюНакладнуюToolStripMenuItem
             // 
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Name = "добавитьПриходнуюНакладнуюToolStripMenuItem";
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Text = "Добавить приходную накладную";
+            this.добавитьПриходнуюНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.добавитьПриходнуюНакладнуюToolStripMenuItem_Click);
             // 
             // сдатьНакладнуюToolStripMenuItem
             // 
             this.сдатьНакладнуюToolStripMenuItem.Name = "сдатьНакладнуюToolStripMenuItem";
             this.сдатьНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.сдатьНакладнуюToolStripMenuItem.Text = "Сдать накладную";
+            this.сдатьНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.сдатьНакладнуюToolStripMenuItem_Click);
             // 
             // перенестиНакладнуюВАрхивToolStripMenuItem
             // 
@@ -386,6 +388,10 @@
             this.columnHeader17.Text = "Идентификатор";
             this.columnHeader17.Width = 88;
             // 
+            // columnHeader25
+            // 
+            this.columnHeader25.Text = "Адрес";
+            // 
             // columnHeader18
             // 
             this.columnHeader18.Text = "Секция";
@@ -418,7 +424,7 @@
             this.добавитьСкладскуюЯчейкуToolStripMenuItem,
             this.удалитьСкладскуюЯчейкуToolStripMenuItem});
             this.WarehouseCellsContextMenu.Name = "WarehouseCellsContextMenu";
-            this.WarehouseCellsContextMenu.Size = new System.Drawing.Size(307, 92);
+            this.WarehouseCellsContextMenu.Size = new System.Drawing.Size(307, 70);
             // 
             // вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem
             // 
@@ -439,11 +445,6 @@
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Text = "Удалить складскую ячейку";
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Click += new System.EventHandler(this.удалитьСкладскуюЯчейкуToolStripMenuItem_Click);
-            // 
-            // columnHeader25
-            // 
-            this.columnHeader25.DisplayIndex = 1;
-            this.columnHeader25.Text = "Адрес";
             // 
             // WarehouseBrowser
             // 

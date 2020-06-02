@@ -16,11 +16,13 @@ namespace BDiSUBD.Forms
     {
         Random rnd = new Random();
         string warehouseId = "";
+        string FIO = "";
 
-        public WarehouseBrowser(string warehouseId)
+        public WarehouseBrowser(string warehouseId, string WorkerFio)
         {
             InitializeComponent();
             this.warehouseId = warehouseId;
+            this.FIO = WorkerFio;
         }
 
         private void WarehouseBrowser_Load(object sender, EventArgs e)
@@ -189,6 +191,110 @@ namespace BDiSUBD.Forms
             {
                 MetroFramework.MetroMessageBox.Show(this, $"Произошла ошибка\n{ex.Message}", "Ошибка");
             }
+        }
+
+        private void добавитьПриходнуюНакладнуюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+            List<string> types = new List<string>();
+
+            {
+                //Запись в список всех типов техники, которые доступны для этого склада
+                try
+                {
+                    connection.Open();
+
+                    MySqlDataReader reader = new MySqlCommand($"SELECT Name FROM technique_types WHERE Warehouse_ID = '{warehouseId}'", connection).ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        types.Add(reader[0].ToString());
+                    }
+
+                    reader.Close();
+                    connection.Close();
+                }
+                catch(Exception ex)
+                {
+                    MetroFramework.MetroMessageBox.Show(this, $"{ex.Message}", "Ошибка получения типов");
+                    return;
+                }
+            }
+
+            AddInputInvoice AddForm = new AddInputInvoice(types);
+            AddForm.ShowDialog();
+            
+            try
+            {
+                connection.Open();
+                new MySqlCommand($"INSERT INTO Invoices VALUES (null, '{warehouseId}', '{AddForm.TechniqueComboBox.Text}', '{AddForm.NameTextBox.Text}', {AddForm.CountTextBox.Text}, '{DateTime.Now.ToString()}', '{FIO}', '', 'Приходная') ", connection).ExecuteNonQuery();
+                connection.Close();
+                
+
+                {
+                    ListViewItem item = null;
+
+                    item = InputInvoices.Items.Count == 0 ? InputInvoices.Items.Add("1") : InputInvoices.Items.Add((int.Parse(InputInvoices.Items[InputInvoices.Items.Count - 1].SubItems[0].Text) + 1).ToString());
+
+                    item.SubItems.Add(AddForm.TechniqueComboBox.Text);
+                    item.SubItems.Add(AddForm.NameTextBox.Text);
+                    item.SubItems.Add(AddForm.CountTextBox.Text);
+                    item.SubItems.Add(DateTime.Now.ToString());
+                    item.SubItems.Add(FIO);
+                }
+            }
+            catch(Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, $"{ex.Message}", "Ошибка");
+            }
+        }
+
+        private void сдатьНакладнуюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (InputInvoices.SelectedItems.Count == 0) return;
+            if (InputInvoices.SelectedItems[0].SubItems[6].Text.Length > 1) return; //Если уже сдана
+
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+
+            try
+            {
+                connection.Open();
+
+                List<string> cells = new List<string>();
+
+                {
+                    //Получаем свободные складские ячейки
+                    MySqlDataReader reader = new MySqlCommand($"SELECT ID FROM WarehouseCell", connection).ExecuteReader();
+                    while (reader.Read())
+                    {
+                        cells.Add(reader[0].ToString());
+                    }
+                    reader.Close();
+                }
+
+                CloseInputInvoice CloseInvoiceForm = new CloseInputInvoice(cells);
+                CloseInvoiceForm.ShowDialog();
+
+                if (!CloseInvoiceForm.OK) return;
+
+                {
+                    //Обновляем накладную в таблицe
+                    new MySqlCommand($"UPDATE Invoices SET `Passed the invoice` = '{FIO}' WHERE Number = {InputInvoices.SelectedItems[0].SubItems[0].Text}", connection).ExecuteNonQuery();
+                }
+
+                {
+                    //Добавляем в таблицу товаров на складе
+                    new MySqlCommand($"INSERT INTO technique VALUES ('{genId(10)}', '{CloseInvoiceForm.metroComboBox1.Text}', '{InputInvoices.SelectedItems[0].SubItems[1].Text}', '{InputInvoices.SelectedItems[0].SubItems[2].Text}', '{InputInvoices.SelectedItems[0].SubItems[3].Text}')", connection).ExecuteNonQuery();
+                    InputInvoices.SelectedItems[0].SubItems[6].Text = FIO;
+                }
+
+                connection.Close();
+            }
+            catch(Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, $"Ошибка \n{ex.Message}", "Ошибка");
+            }
+
         }
     }
 }
