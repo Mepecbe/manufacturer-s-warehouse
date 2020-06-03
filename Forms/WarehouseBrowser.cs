@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using BDiSUBD.Forms;
+
 using MySql.Data.MySqlClient;
 
 namespace BDiSUBD.Forms
@@ -131,6 +133,8 @@ namespace BDiSUBD.Forms
 
             for (int a = 0; a < WarehouseCell.Columns.Count; a++) 
                 WarehouseCell.Columns[a].Width = WarehouseCell.Width / WarehouseCell.Columns.Count;
+
+            this.SettingsButton.Location = new Point(this.Size.Width - this.SettingsButton.Width - 80, this.SettingsButton.Location.Y);
         }
 
         private void добавитьСкладскуюЯчейкуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -306,6 +310,12 @@ namespace BDiSUBD.Forms
                 MetroFramework.MetroMessageBox.Show(this, $"Ошибка \n{ex.Message}", "Ошибка");
             }
 
+        }
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            //**/
+            new SettingsForm(warehouseId).ShowDialog();
         }
     }
 }

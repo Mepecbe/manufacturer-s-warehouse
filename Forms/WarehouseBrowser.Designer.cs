@@ -76,6 +76,7 @@
             this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingsButton = new MetroFramework.Controls.MetroButton();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -236,7 +237,7 @@
             this.перенестиНакладнуюВАрхивToolStripMenuItem});
             this.inputInvoicesContextMenu.Name = "contextMenuStrip1";
             this.inputInvoicesContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(257, 92);
+            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(257, 70);
             // 
             // добавитьПриходнуюНакладнуюToolStripMenuItem
             // 
@@ -446,11 +447,22 @@
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Text = "Удалить складскую ячейку";
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Click += new System.EventHandler(this.удалитьСкладскуюЯчейкуToolStripMenuItem_Click);
             // 
+            // SettingsButton
+            // 
+            this.SettingsButton.Location = new System.Drawing.Point(913, 5);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(104, 23);
+            this.SettingsButton.TabIndex = 3;
+            this.SettingsButton.Text = "Настройки";
+            this.SettingsButton.UseSelectable = true;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
+            // 
             // WarehouseBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 546);
+            this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.metroTabControl1);
             this.Name = "WarehouseBrowser";
             this.Text = "Обозреватель";
@@ -518,5 +530,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader23;
         private System.Windows.Forms.ColumnHeader columnHeader24;
         private System.Windows.Forms.ColumnHeader columnHeader25;
+        private MetroFramework.Controls.MetroButton SettingsButton;
     }
 }
