@@ -29,7 +29,7 @@ namespace BDiSUBD.Forms
 
         private void WarehouseBrowser_Load(object sender, EventArgs e)
         {
-            MySqlConnection conn = new MySqlConnection(Properties.Resources.MySqlConnectionString); 
+            MySqlConnection conn = new MySqlConnection(Properties.Resources.MySqlConnectionString);
             conn.Open();
 
             {
@@ -100,7 +100,7 @@ namespace BDiSUBD.Forms
             }
 
 
-            UpdateCellSize(); 
+            UpdateCellSize();
 
             conn.Close();
         }
@@ -122,16 +122,16 @@ namespace BDiSUBD.Forms
 
         private void UpdateCellSize()
         {
-            for (int a = 0; a < InputInvoices.Columns.Count; a++) 
+            for (int a = 0; a < InputInvoices.Columns.Count; a++)
                 InputInvoices.Columns[a].Width = InputInvoices.Width / InputInvoices.Columns.Count;
 
-            for (int a = 0; a < OutputListView.Columns.Count; a++) 
+            for (int a = 0; a < OutputListView.Columns.Count; a++)
                 OutputListView.Columns[a].Width = OutputListView.Width / OutputListView.Columns.Count;
 
-            for (int a = 0; a < TovarsListView.Columns.Count; a++) 
+            for (int a = 0; a < TovarsListView.Columns.Count; a++)
                 TovarsListView.Columns[a].Width = TovarsListView.Width / TovarsListView.Columns.Count;
 
-            for (int a = 0; a < WarehouseCell.Columns.Count; a++) 
+            for (int a = 0; a < WarehouseCell.Columns.Count; a++)
                 WarehouseCell.Columns[a].Width = WarehouseCell.Width / WarehouseCell.Columns.Count;
 
             this.SettingsButton.Location = new Point(this.Size.Width - this.SettingsButton.Width - 80, this.SettingsButton.Location.Y);
@@ -162,7 +162,7 @@ namespace BDiSUBD.Forms
                     new MySqlCommand($"INSERT INTO WarehouseCell VALUES ('{warehouseId}', '{FormAddCell.IdTextBox.Text}', '{FormAddCell.SectionTextBox.Text}', '{FormAddCell.LineTextBox.Text}', '{FormAddCell.RackTextBox.Text}', '{FormAddCell.TierTextBox.Text}', '{FormAddCell.PositionTextBox.Text}')", conn).ExecuteNonQuery();
                     conn.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MetroFramework.MetroMessageBox.Show(this, $"Произошла ошибка\n{ex.Message}", "Ошибка");
                 }
@@ -173,8 +173,8 @@ namespace BDiSUBD.Forms
         {
             string retId = "";
 
-            for (int n = 0; n < len; n++) 
-                retId += Encoding.ASCII.GetChars(new byte[] { rnd.Next(0,2) == 0 ? (byte)rnd.Next(48,58) : (byte)rnd.Next(97,123) })[0];
+            for (int n = 0; n < len; n++)
+                retId += Encoding.ASCII.GetChars(new byte[] { rnd.Next(0, 2) == 0 ? (byte)rnd.Next(48, 58) : (byte)rnd.Next(97, 123) })[0];
 
             return retId;
         }
@@ -218,7 +218,7 @@ namespace BDiSUBD.Forms
                     reader.Close();
                     connection.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MetroFramework.MetroMessageBox.Show(this, $"{ex.Message}", "Ошибка получения типов");
                     return;
@@ -227,13 +227,13 @@ namespace BDiSUBD.Forms
 
             AddInputInvoice AddForm = new AddInputInvoice(types);
             AddForm.ShowDialog();
-            
+
             try
             {
                 connection.Open();
                 new MySqlCommand($"INSERT INTO Invoices VALUES (null, '{warehouseId}', '{AddForm.TechniqueComboBox.Text}', '{AddForm.NameTextBox.Text}', {AddForm.CountTextBox.Text}, '{DateTime.Now.ToString()}', '{FIO}', '', 'Приходная') ", connection).ExecuteNonQuery();
                 connection.Close();
-                
+
 
                 {
                     ListViewItem item = null;
@@ -248,7 +248,7 @@ namespace BDiSUBD.Forms
                     item.SubItems.Add("");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MetroFramework.MetroMessageBox.Show(this, $"{ex.Message}", "Ошибка");
             }
@@ -305,7 +305,7 @@ namespace BDiSUBD.Forms
 
                 connection.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MetroFramework.MetroMessageBox.Show(this, $"Ошибка \n{ex.Message}", "Ошибка");
             }
@@ -317,5 +317,112 @@ namespace BDiSUBD.Forms
             //**/
             new SettingsForm(warehouseId).ShowDialog();
         }
+
+        private void добавитьРасходнуюНакладнуюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+            AddOutputInvoice form = new AddOutputInvoice(this);
+            form.ShowDialog();
+
+            if (form.OK)
+            {
+
+                //Поиск Item'a накладной, среди Item'ов всех товаров
+                foreach (ListViewItem item in TovarsListView.Items)
+                {
+                    if (item.SubItems[0].Text == form.Type
+                        && item.SubItems[2].Text == form.TovarName)
+                    {
+                        try
+                        {
+                            connection.Open();
+                        }
+                        catch (Exception ex)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка подключения");
+                            return;
+                        }
+
+
+                        DateTime Now = DateTime.Now;
+                        new MySqlCommand($"INSERT INTO Invoices VALUES (null, '{warehouseId}', '{form.Type}', '{form.TovarName}', {form.Count}, '{Now.ToString()}', '{FIO}', '', 'Расходная')", connection).ExecuteNonQuery();
+                        
+                        {
+                            ListViewItem NewItem = OutputListView.Items.Add(OutputListView.Items.Count == 0 ? "1" : (int.Parse(OutputListView.Items[OutputListView.Items.Count - 1].SubItems[0].Text).ToString()));
+                            NewItem.SubItems.Add(form.Type);
+                            NewItem.SubItems.Add(form.TovarName);
+                            NewItem.SubItems.Add(form.Count.ToString());
+                            NewItem.SubItems.Add(Now.ToString());
+                            NewItem.SubItems.Add(FIO);
+                            NewItem.SubItems.Add("");
+                        }
+
+                        connection.Close();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void СдатьНакладнуюItem_Click(object sender, EventArgs e)
+        {
+            //Если не выбрано
+            if (OutputListView.SelectedItems.Count == 0) return; 
+            //Если уже сдана
+            if (OutputListView.SelectedItems[0].SubItems[6].Text.Length > 4) return;
+
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+
+            try
+            {
+                connection.Open();
+
+                if (MetroFramework.MetroMessageBox.Show(this, "Вы действительно хотите сдать расходную накладную?", "Предупреждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach(ListViewItem item in TovarsListView.Items)
+                    {
+                        if(item.SubItems[2].Text == OutputListView.SelectedItems[0].SubItems[2].Text)
+                        {
+                            if(OutputListView.SelectedItems[0].SubItems[3].Text == item.SubItems[3].Text)
+                            {
+                                //Если со склада выгружаются все товары такого наименования, то удаляем его с таблицы товаров
+                                new MySqlCommand($"DELETE FROM technique WHERE Name = '{item.SubItems[2].Text}'", connection).ExecuteNonQuery();
+                                new MySqlCommand($"UPDATE Invoices SET `Passed the invoice` = '{FIO}' WHERE Warehouse_ID = '{warehouseId}' AND Name = '{OutputListView.SelectedItems[0].SubItems[2].Text}' AND Count = {OutputListView.SelectedItems[0].SubItems[3].Text}", connection).ExecuteNonQuery();
+                                OutputListView.SelectedItems[0].SubItems[6].Text = FIO;
+                                item.Remove();
+                                break;
+                            }
+                            else
+                            {
+                                //Если на складе не выгружается всё и остаётся остаток
+                                int newCount = int.Parse(item.SubItems[3].Text) - int.Parse(OutputListView.SelectedItems[0].SubItems[3].Text);
+
+                                new MySqlCommand($"UPDATE technique SET Count = {newCount} WHERE Name = '{item.SubItems[2].Text}' ", connection).ExecuteNonQuery();
+                                new MySqlCommand($"UPDATE Invoices SET `Passed the invoice` = '{FIO}' WHERE Warehouse_ID = '{warehouseId}' AND Name = '{OutputListView.SelectedItems[0].SubItems[2].Text}' AND Count = {OutputListView.SelectedItems[0].SubItems[3].Text}", connection).ExecuteNonQuery();
+                                OutputListView.SelectedItems[0].SubItems[6].Text = FIO;
+
+                                item.SubItems[3].Text = newCount.ToString();
+                                break;
+                            }
+                        }
+                    }
+
+
+                   // new MySqlCommand($"UPDATE Invoices WHERE Warehouse_ID = '{warehouseId}' AND Number = '{OutputListView.SelectedItems[0].SubItems[0].Text}' SET `Passed the invoice` = '{FIO}'", connection).ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, ex.Message + "\n" + ex.StackTrace, "Ошибка");
+            }
+        }
     }
 }
+
+/*
+ * УДАЛЯТЬ ИЗ ТОВАРОВ, ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ РАСХОДНОЙ НАКЛАДНОЙ
+  new MySqlCommand($"DELETE FROM technique WHERE Type = '{form.Type}' AND Name = '{form.TovarName}'", connection).ExecuteNonQuery();
+  item.Remove();     
+     */

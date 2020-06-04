@@ -61,8 +61,8 @@
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.outputInvoicesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьРасходнуюНакладнуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.перенестиНакладнуюВАрхивToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.сдатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.СдатьНакладнуюItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ПеренестиВАрхивItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.WarehouseCell = new MetroFramework.Controls.MetroListView();
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -77,6 +77,7 @@
             this.добавитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsButton = new MetroFramework.Controls.MetroButton();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -93,10 +94,11 @@
             this.metroTabControl1.Controls.Add(this.tabPage2);
             this.metroTabControl1.Controls.Add(this.tabPage3);
             this.metroTabControl1.Controls.Add(this.tabPage4);
+            this.metroTabControl1.Controls.Add(this.tabPage5);
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -143,7 +145,7 @@
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Имя";
+            this.columnHeader3.Text = "Наименование";
             this.columnHeader3.Width = 340;
             // 
             // columnHeader10
@@ -329,8 +331,8 @@
             // 
             this.outputInvoicesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавитьРасходнуюНакладнуюToolStripMenuItem,
-            this.перенестиНакладнуюВАрхивToolStripMenuItem1,
-            this.сдатToolStripMenuItem});
+            this.СдатьНакладнуюItem,
+            this.ПеренестиВАрхивItem});
             this.outputInvoicesContextMenu.Name = "outputInvoicesContextMenu";
             this.outputInvoicesContextMenu.Size = new System.Drawing.Size(255, 70);
             // 
@@ -339,18 +341,20 @@
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Name = "добавитьРасходнуюНакладнуюToolStripMenuItem";
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Text = "Добавить расходную накладную";
+            this.добавитьРасходнуюНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.добавитьРасходнуюНакладнуюToolStripMenuItem_Click);
             // 
-            // перенестиНакладнуюВАрхивToolStripMenuItem1
+            // СдатьНакладнуюItem
             // 
-            this.перенестиНакладнуюВАрхивToolStripMenuItem1.Name = "перенестиНакладнуюВАрхивToolStripMenuItem1";
-            this.перенестиНакладнуюВАрхивToolStripMenuItem1.Size = new System.Drawing.Size(254, 22);
-            this.перенестиНакладнуюВАрхивToolStripMenuItem1.Text = "Сдать накладную";
+            this.СдатьНакладнуюItem.Name = "СдатьНакладнуюItem";
+            this.СдатьНакладнуюItem.Size = new System.Drawing.Size(254, 22);
+            this.СдатьНакладнуюItem.Text = "Сдать накладную";
+            this.СдатьНакладнуюItem.Click += new System.EventHandler(this.СдатьНакладнуюItem_Click);
             // 
-            // сдатToolStripMenuItem
+            // ПеренестиВАрхивItem
             // 
-            this.сдатToolStripMenuItem.Name = "сдатToolStripMenuItem";
-            this.сдатToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.сдатToolStripMenuItem.Text = "Перенести накладную в архив";
+            this.ПеренестиВАрхивItem.Name = "ПеренестиВАрхивItem";
+            this.ПеренестиВАрхивItem.Size = new System.Drawing.Size(254, 22);
+            this.ПеренестиВАрхивItem.Text = "Перенести накладную в архив";
             // 
             // tabPage4
             // 
@@ -457,6 +461,14 @@
             this.SettingsButton.UseSelectable = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 38);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Операции перевода";
+            // 
             // WarehouseBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,8 +533,8 @@
         private System.Windows.Forms.ContextMenuStrip outputInvoicesContextMenu;
         private System.Windows.Forms.ToolStripMenuItem сдатьНакладнуюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьРасходнуюНакладнуюToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem перенестиНакладнуюВАрхивToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem сдатToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem СдатьНакладнуюItem;
+        private System.Windows.Forms.ToolStripMenuItem ПеренестиВАрхивItem;
         private System.Windows.Forms.ContextMenuStrip WarehouseCellsContextMenu;
         private System.Windows.Forms.ToolStripMenuItem добавитьСкладскуюЯчейкуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem;
@@ -531,5 +543,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader24;
         private System.Windows.Forms.ColumnHeader columnHeader25;
         private MetroFramework.Controls.MetroButton SettingsButton;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }

@@ -73,6 +73,12 @@
     <Compile Include="Forms\AddInputInvoice.Designer.cs">
       <DependentUpon>AddInputInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddOutputInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddOutputInvoice.Designer.cs">
+      <DependentUpon>AddOutputInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CloseInputInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddInputInvoice.resx">
       <DependentUpon>AddInputInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddOutputInvoice.resx">
+      <DependentUpon>AddOutputInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CloseInputInvoice.resx">
       <DependentUpon>CloseInputInvoice.cs</DependentUpon>
