@@ -269,12 +269,19 @@ namespace BDiSUBD.Forms
 
                 {
                     //Получаем свободные складские ячейки
-                    MySqlDataReader reader = new MySqlCommand($"SELECT ID FROM WarehouseCell", connection).ExecuteReader();
+                    MySqlDataReader reader = new MySqlCommand($"SELECT `WarehouseCell`.`ID` FROM `WarehouseCell` WHERE `WarehouseCell`.`ID` NOT IN (SELECT `technique`.`Cell_Id` FROM technique)", connection).ExecuteReader();
                     while (reader.Read())
                     {
                         cells.Add(reader[0].ToString());
                     }
                     reader.Close();
+                }
+
+                if(cells.Count == 0)
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Нет свободных складских ячеек", "Предупреждение");
+                    connection.Close();
+                    return;
                 }
 
                 CloseInputInvoice CloseInvoiceForm = new CloseInputInvoice(cells);
