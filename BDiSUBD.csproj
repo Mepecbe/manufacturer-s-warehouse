@@ -79,6 +79,12 @@
     <Compile Include="Forms\AddOutputInvoice.Designer.cs">
       <DependentUpon>AddOutputInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddTransferOperation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddTransferOperation.Designer.cs">
+      <DependentUpon>AddTransferOperation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CloseInputInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddOutputInvoice.resx">
       <DependentUpon>AddOutputInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddTransferOperation.resx">
+      <DependentUpon>AddTransferOperation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CloseInputInvoice.resx">
       <DependentUpon>CloseInputInvoice.cs</DependentUpon>

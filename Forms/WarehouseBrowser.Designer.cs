@@ -76,8 +76,16 @@
             this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SettingsButton = new MetroFramework.Controls.MetroButton();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.TransferOperations = new MetroFramework.Controls.MetroListView();
+            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SettingsButton = new MetroFramework.Controls.MetroButton();
+            this.transferContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.потвердитьПереводToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.перенестиПереводВАрхивToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -86,6 +94,8 @@
             this.outputInvoicesContextMenu.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.WarehouseCellsContextMenu.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.transferContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroTabControl1
@@ -98,7 +108,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 4;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -451,6 +461,55 @@
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Text = "Удалить складскую ячейку";
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Click += new System.EventHandler(this.удалитьСкладскуюЯчейкуToolStripMenuItem_Click);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.TransferOperations);
+            this.tabPage5.Location = new System.Drawing.Point(4, 38);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Операции перевода";
+            // 
+            // TransferOperations
+            // 
+            this.TransferOperations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader26,
+            this.columnHeader27,
+            this.columnHeader28,
+            this.columnHeader29});
+            this.TransferOperations.ContextMenuStrip = this.transferContextMenu;
+            this.TransferOperations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TransferOperations.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.TransferOperations.FullRowSelect = true;
+            this.TransferOperations.Location = new System.Drawing.Point(0, 0);
+            this.TransferOperations.Name = "TransferOperations";
+            this.TransferOperations.OwnerDraw = true;
+            this.TransferOperations.Size = new System.Drawing.Size(1028, 424);
+            this.TransferOperations.TabIndex = 0;
+            this.TransferOperations.UseCompatibleStateImageBehavior = false;
+            this.TransferOperations.UseSelectable = true;
+            this.TransferOperations.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader26
+            // 
+            this.columnHeader26.Text = "Склад-отправитель";
+            this.columnHeader26.Width = 224;
+            // 
+            // columnHeader27
+            // 
+            this.columnHeader27.Text = "Складская ячейка";
+            this.columnHeader27.Width = 194;
+            // 
+            // columnHeader28
+            // 
+            this.columnHeader28.Text = "Склад-получатель";
+            this.columnHeader28.Width = 137;
+            // 
+            // columnHeader29
+            // 
+            this.columnHeader29.Text = "Складская ячейка";
+            this.columnHeader29.Width = 274;
+            // 
             // SettingsButton
             // 
             this.SettingsButton.Location = new System.Drawing.Point(913, 5);
@@ -461,13 +520,25 @@
             this.SettingsButton.UseSelectable = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
-            // tabPage5
+            // transferContextMenu
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 38);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1028, 424);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Операции перевода";
+            this.transferContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.потвердитьПереводToolStripMenuItem,
+            this.перенестиПереводВАрхивToolStripMenuItem});
+            this.transferContextMenu.Name = "transferContextMenu";
+            this.transferContextMenu.Size = new System.Drawing.Size(226, 48);
+            // 
+            // потвердитьПереводToolStripMenuItem
+            // 
+            this.потвердитьПереводToolStripMenuItem.Name = "потвердитьПереводToolStripMenuItem";
+            this.потвердитьПереводToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.потвердитьПереводToolStripMenuItem.Text = "Потвердить перевод";
+            // 
+            // перенестиПереводВАрхивToolStripMenuItem
+            // 
+            this.перенестиПереводВАрхивToolStripMenuItem.Name = "перенестиПереводВАрхивToolStripMenuItem";
+            this.перенестиПереводВАрхивToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.перенестиПереводВАрхивToolStripMenuItem.Text = "Перенести перевод в архив";
             // 
             // WarehouseBrowser
             // 
@@ -489,6 +560,8 @@
             this.outputInvoicesContextMenu.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.WarehouseCellsContextMenu.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.transferContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -544,5 +617,13 @@
         private System.Windows.Forms.ColumnHeader columnHeader25;
         private MetroFramework.Controls.MetroButton SettingsButton;
         private System.Windows.Forms.TabPage tabPage5;
+        private MetroFramework.Controls.MetroListView TransferOperations;
+        private System.Windows.Forms.ColumnHeader columnHeader26;
+        private System.Windows.Forms.ColumnHeader columnHeader27;
+        private System.Windows.Forms.ColumnHeader columnHeader28;
+        private System.Windows.Forms.ColumnHeader columnHeader29;
+        private MetroFramework.Controls.MetroContextMenu transferContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem потвердитьПереводToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem перенестиПереводВАрхивToolStripMenuItem;
     }
 }

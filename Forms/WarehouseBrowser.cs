@@ -134,6 +134,10 @@ namespace BDiSUBD.Forms
             for (int a = 0; a < WarehouseCell.Columns.Count; a++)
                 WarehouseCell.Columns[a].Width = WarehouseCell.Width / WarehouseCell.Columns.Count;
 
+            for (int a = 0; a < TransferOperations.Columns.Count; a++)
+                TransferOperations.Columns[a].Width = TransferOperations.Width / TransferOperations.Columns.Count;
+
+
             this.SettingsButton.Location = new Point(this.Size.Width - this.SettingsButton.Width - 80, this.SettingsButton.Location.Y);
         }
 
