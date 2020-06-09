@@ -100,6 +100,24 @@ namespace BDiSUBD.Forms
             }
 
 
+            {
+                //Заполнение таблицы внутренних переводов
+                MySqlDataReader reader = new MySqlCommand($"SELECT * FROM Transfers WHERE Warehouse_ID = '{warehouseId}';", conn).ExecuteReader();
+                while (reader.Read())
+                {
+                    ListViewItem item = TransferOperations.Items.Add(reader[1].ToString());
+                    item.SubItems.Add(reader[2].ToString());
+                    item.SubItems.Add(reader[3].ToString());
+                    item.SubItems.Add(reader[4].ToString());
+                    item.SubItems.Add(reader[5].ToString());
+                }
+
+                reader.Close();
+            }
+
+
+
+
             UpdateCellSize();
 
             conn.Close();
@@ -232,6 +250,8 @@ namespace BDiSUBD.Forms
             AddInputInvoice AddForm = new AddInputInvoice(types);
             AddForm.ShowDialog();
 
+            if (!AddForm.OK) return;
+
             try
             {
                 connection.Open();
@@ -300,7 +320,7 @@ namespace BDiSUBD.Forms
 
                 {
                     //Добавляем в таблицу товаров на складе
-                    new MySqlCommand($"INSERT INTO technique VALUES ('{genId(10)}', '{CloseInvoiceForm.metroComboBox1.Text}', '{InputInvoices.SelectedItems[0].SubItems[1].Text}', '{InputInvoices.SelectedItems[0].SubItems[2].Text}', '{InputInvoices.SelectedItems[0].SubItems[3].Text}')", connection).ExecuteNonQuery();
+                    new MySqlCommand($"INSERT INTO technique VALUES ('{warehouseId}', '{CloseInvoiceForm.metroComboBox1.Text}', '{InputInvoices.SelectedItems[0].SubItems[1].Text}', '{InputInvoices.SelectedItems[0].SubItems[2].Text}', '{InputInvoices.SelectedItems[0].SubItems[3].Text}')", connection).ExecuteNonQuery();
                 }
 
                 {
@@ -429,11 +449,75 @@ namespace BDiSUBD.Forms
                 MetroFramework.MetroMessageBox.Show(this, ex.Message + "\n" + ex.StackTrace, "Ошибка");
             }
         }
+
+        private void добавитьПереводToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (TovarsListView.SelectedItems.Count == 0) return;
+
+            AddTransferOperation form = new AddTransferOperation(TovarsListView.SelectedItems[0].SubItems[1].Text, TovarsListView.SelectedItems[0].SubItems[0].Text + ": " + TovarsListView.SelectedItems[0].SubItems[2].Text, int.Parse(TovarsListView.SelectedItems[0].SubItems[3].Text));
+            form.ShowDialog();
+
+            if (form.OK)
+            {
+                MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+
+                try
+                {
+                    connection.Open();
+
+                    new MySqlCommand($"INSERT INTO Transfers VALUES('{warehouseId}', '{form.TovarName.Text}', {form.CountTextBox.Text}, '{form.OutputCell.Text}', '{form.inputWarehouseCell.Text}', '{FIO}')", connection).ExecuteNonQuery();
+
+                    ListViewItem item = TransferOperations.Items.Add(form.TovarName.Text);
+                    item.SubItems.Add(form.CountTextBox.Text);
+                    item.SubItems.Add(form.OutputCell.Text);
+                    item.SubItems.Add(form.inputWarehouseCell.Text);
+                    item.SubItems.Add(FIO);
+
+                    connection.Close();
+                }
+                catch(Exception ex)
+                {
+                    MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка");
+                }
+            }
+        }
+
+        private void потвердитьПереводToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (TransferOperations.SelectedItems.Count == 0) return;
+
+            foreach(ListViewItem item in TovarsListView.Items)
+            {
+                //Ищем этот элемент в таблице товаров
+                if(item.SubItems[1].Text == TransferOperations.SelectedItems[0].SubItems[2].Text)
+                {
+                    if(int.Parse(item.SubItems[3].Text) - int.Parse(TransferOperations.SelectedItems[0].SubItems[1].Text) <= 0)
+                    {
+                        //Если производится перевод всего кол-ва, что есть на складе
+                        MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+                        connection.Open();
+
+                        //Обновление ячейки местанохждения товара на складе
+                        new MySqlCommand($"UPDATE technique SET Cell_ID = '{TransferOperations.SelectedItems[0].SubItems[3].Text}' WHERE Warehouse_ID = '{warehouseId}' AND Name = '{TransferOperations.SelectedItems[0].SubItems[0].Text}'", connection).ExecuteNonQuery();
+
+                        //Удаление операции перевода из таблицы
+                        new MySqlCommand($"DELETE FROM Transfers WHERE Warehouse_ID = '{warehouseId}' AND OutputCell = '{TransferOperations.SelectedItems[0].SubItems[2].Text}' AND InputCell = '{TransferOperations.SelectedItems[0].SubItems[3].Text}'");
+
+                        //Обновление ячейки в списке в форме
+                        item.SubItems[1].Text = TransferOperations.SelectedItems[0].SubItems[3].Text;
+
+                        //Удаление операции из списка в форме
+                        TransferOperations.SelectedItems[0].Remove();
+                        
+
+                        connection.Close();
+                    }
+                    else
+                    {
+                        //Если переводим не всё кол-во
+                    }
+                }
+            }
+        }
     }
 }
-
-/*
- * УДАЛЯТЬ ИЗ ТОВАРОВ, ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ РАСХОДНОЙ НАКЛАДНОЙ
-  new MySqlCommand($"DELETE FROM technique WHERE Type = '{form.Type}' AND Name = '{form.TovarName}'", connection).ExecuteNonQuery();
-  item.Remove();     
-     */

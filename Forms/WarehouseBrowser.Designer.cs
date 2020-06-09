@@ -36,6 +36,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TovarsContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.tovarsContextMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroListView1 = new MetroFramework.Controls.MetroListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.InputInvoices = new MetroFramework.Controls.MetroListView();
@@ -78,16 +80,18 @@
             this.удалитьСкладскуюЯчейкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.TransferOperations = new MetroFramework.Controls.MetroListView();
-            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SettingsButton = new MetroFramework.Controls.MetroButton();
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.transferContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.потвердитьПереводToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.перенестиПереводВАрхивToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingsButton = new MetroFramework.Controls.MetroButton();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.TovarsContextMenu.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.inputInvoicesContextMenu.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -131,6 +135,7 @@
             this.columnHeader1,
             this.columnHeader3,
             this.columnHeader10});
+            this.TovarsListView.ContextMenuStrip = this.TovarsContextMenu;
             this.TovarsListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TovarsListView.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.TovarsListView.FullRowSelect = true;
@@ -162,6 +167,20 @@
             // 
             this.columnHeader10.Text = "Количество";
             this.columnHeader10.Width = 104;
+            // 
+            // TovarsContextMenu
+            // 
+            this.TovarsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tovarsContextMenuToolStripMenuItem});
+            this.TovarsContextMenu.Name = "TovarsContextMenu";
+            this.TovarsContextMenu.Size = new System.Drawing.Size(166, 26);
+            // 
+            // tovarsContextMenuToolStripMenuItem
+            // 
+            this.tovarsContextMenuToolStripMenuItem.Name = "tovarsContextMenuToolStripMenuItem";
+            this.tovarsContextMenuToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.tovarsContextMenuToolStripMenuItem.Text = "Создать перевод";
+            this.tovarsContextMenuToolStripMenuItem.Click += new System.EventHandler(this.добавитьПереводToolStripMenuItem_Click);
             // 
             // metroListView1
             // 
@@ -473,10 +492,11 @@
             // TransferOperations
             // 
             this.TransferOperations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader26,
-            this.columnHeader27,
             this.columnHeader28,
-            this.columnHeader29});
+            this.columnHeader30,
+            this.columnHeader27,
+            this.columnHeader29,
+            this.columnHeader31});
             this.TransferOperations.ContextMenuStrip = this.transferContextMenu;
             this.TransferOperations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TransferOperations.Font = new System.Drawing.Font("Segoe UI", 12F);
@@ -490,25 +510,51 @@
             this.TransferOperations.UseSelectable = true;
             this.TransferOperations.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader26
+            // columnHeader28
             // 
-            this.columnHeader26.Text = "Склад-отправитель";
-            this.columnHeader26.Width = 224;
+            this.columnHeader28.Text = "Товар";
+            this.columnHeader28.Width = 85;
+            // 
+            // columnHeader30
+            // 
+            this.columnHeader30.Text = "Количество";
+            this.columnHeader30.Width = 121;
             // 
             // columnHeader27
             // 
-            this.columnHeader27.Text = "Складская ячейка";
+            this.columnHeader27.Text = "Из складской ячейки";
             this.columnHeader27.Width = 194;
-            // 
-            // columnHeader28
-            // 
-            this.columnHeader28.Text = "Склад-получатель";
-            this.columnHeader28.Width = 137;
             // 
             // columnHeader29
             // 
-            this.columnHeader29.Text = "Складская ячейка";
+            this.columnHeader29.Text = "В складскую ячейку";
             this.columnHeader29.Width = 274;
+            // 
+            // columnHeader31
+            // 
+            this.columnHeader31.Text = "Инициатор перевода";
+            this.columnHeader31.Width = 103;
+            // 
+            // transferContextMenu
+            // 
+            this.transferContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.потвердитьПереводToolStripMenuItem,
+            this.перенестиПереводВАрхивToolStripMenuItem});
+            this.transferContextMenu.Name = "transferContextMenu";
+            this.transferContextMenu.Size = new System.Drawing.Size(226, 70);
+            // 
+            // потвердитьПереводToolStripMenuItem
+            // 
+            this.потвердитьПереводToolStripMenuItem.Name = "потвердитьПереводToolStripMenuItem";
+            this.потвердитьПереводToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.потвердитьПереводToolStripMenuItem.Text = "Потвердить перевод";
+            this.потвердитьПереводToolStripMenuItem.Click += new System.EventHandler(this.потвердитьПереводToolStripMenuItem_Click);
+            // 
+            // перенестиПереводВАрхивToolStripMenuItem
+            // 
+            this.перенестиПереводВАрхивToolStripMenuItem.Name = "перенестиПереводВАрхивToolStripMenuItem";
+            this.перенестиПереводВАрхивToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.перенестиПереводВАрхивToolStripMenuItem.Text = "Перенести перевод в архив";
             // 
             // SettingsButton
             // 
@@ -519,26 +565,6 @@
             this.SettingsButton.Text = "Настройки";
             this.SettingsButton.UseSelectable = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
-            // 
-            // transferContextMenu
-            // 
-            this.transferContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.потвердитьПереводToolStripMenuItem,
-            this.перенестиПереводВАрхивToolStripMenuItem});
-            this.transferContextMenu.Name = "transferContextMenu";
-            this.transferContextMenu.Size = new System.Drawing.Size(226, 48);
-            // 
-            // потвердитьПереводToolStripMenuItem
-            // 
-            this.потвердитьПереводToolStripMenuItem.Name = "потвердитьПереводToolStripMenuItem";
-            this.потвердитьПереводToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.потвердитьПереводToolStripMenuItem.Text = "Потвердить перевод";
-            // 
-            // перенестиПереводВАрхивToolStripMenuItem
-            // 
-            this.перенестиПереводВАрхивToolStripMenuItem.Name = "перенестиПереводВАрхивToolStripMenuItem";
-            this.перенестиПереводВАрхивToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.перенестиПереводВАрхивToolStripMenuItem.Text = "Перенести перевод в архив";
             // 
             // WarehouseBrowser
             // 
@@ -554,6 +580,7 @@
             this.Resize += new System.EventHandler(this.WarehouseBrowser_Resize);
             this.metroTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.TovarsContextMenu.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.inputInvoicesContextMenu.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -618,12 +645,15 @@
         private MetroFramework.Controls.MetroButton SettingsButton;
         private System.Windows.Forms.TabPage tabPage5;
         private MetroFramework.Controls.MetroListView TransferOperations;
-        private System.Windows.Forms.ColumnHeader columnHeader26;
         private System.Windows.Forms.ColumnHeader columnHeader27;
-        private System.Windows.Forms.ColumnHeader columnHeader28;
         private System.Windows.Forms.ColumnHeader columnHeader29;
         private MetroFramework.Controls.MetroContextMenu transferContextMenu;
         private System.Windows.Forms.ToolStripMenuItem потвердитьПереводToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem перенестиПереводВАрхивToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader28;
+        private System.Windows.Forms.ColumnHeader columnHeader30;
+        private System.Windows.Forms.ColumnHeader columnHeader31;
+        private MetroFramework.Controls.MetroContextMenu TovarsContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tovarsContextMenuToolStripMenuItem;
     }
 }
