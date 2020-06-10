@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Drawing; 
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BDiSUBD.Forms;
 
 using MySql.Data.MySqlClient;
+using MicrosoftExcel = Microsoft.Office.Interop.Excel;
 
 namespace BDiSUBD.Forms
 {
@@ -518,6 +519,151 @@ namespace BDiSUBD.Forms
                     }
                 }
             }
+        }
+
+        private void ПеренестиВАрхивItem_Click(object sender, EventArgs e)
+        {
+            if (OutputListView.SelectedItems.Count == 0) return;
+
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+
+            try
+            {
+                connection.Open();
+
+                string text = $"Тип накладной: Приходная\n"
+                            + $"Наименование: {OutputListView.SelectedItems[0].SubItems[2].Text}\n"
+                            + $"Количество {OutputListView.SelectedItems[0].SubItems[3].Text}\n"
+                            + $"Дата создания: {OutputListView.SelectedItems[0].SubItems[4].Text}\n"
+                            + $"Принял: {OutputListView.SelectedItems[0].SubItems[5].Text}\n"
+                            + $"Сдал: {OutputListView.SelectedItems[0].SubItems[6].Text}\n";
+
+
+                new MySqlCommand($"INSERT INTO Archive VALUES('{warehouseId}', '{text}')", connection).ExecuteNonQuery();
+                new MySqlCommand($"DELETE FROM Invoices WHERE Warehouse_ID = '{warehouseId}' AND Type = 'Приходная' AND Name = '{OutputListView.SelectedItems[0].SubItems[2].Text}' AND CreateDate = '{OutputListView.SelectedItems[0].SubItems[4].Text}'", connection).ExecuteNonQuery();
+
+                OutputListView.SelectedItems[0].Remove();
+
+                connection.Close();
+            }
+            catch(Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка");
+            }
+        }
+
+        private void перенестиНакладнуюВАрхивToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (InputInvoices.SelectedItems.Count == 0) return;
+
+            MySqlConnection connection = new MySqlConnection(Properties.Resources.MySqlConnectionString);
+
+            try
+            {
+                connection.Open();
+
+                string text = $"Тип накладной: Приходная\n"
+                            + $"Наименование: {InputInvoices.SelectedItems[0].SubItems[2].Text}\n"
+                            + $"Количество {InputInvoices.SelectedItems[0].SubItems[3].Text}\n"
+                            + $"Дата создания: {InputInvoices.SelectedItems[0].SubItems[4].Text}\n"
+                            + $"Принял: {InputInvoices.SelectedItems[0].SubItems[5].Text}\n"
+                            + $"Сдал: {InputInvoices.SelectedItems[0].SubItems[6].Text}\n";
+
+
+                new MySqlCommand($"INSERT INTO Archive VALUES('{warehouseId}', '{text}')", connection).ExecuteNonQuery();
+                new MySqlCommand($"DELETE FROM Invoices WHERE Warehouse_ID = '{warehouseId}' AND Type = 'Приходная' AND Name = '{InputInvoices.SelectedItems[0].SubItems[2].Text}' AND CreateDate = '{InputInvoices.SelectedItems[0].SubItems[4].Text}'", connection).ExecuteNonQuery();
+
+                InputInvoices.SelectedItems[0].Remove();
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(this, ex.Message, "Ошибка");
+            }
+        }
+
+        private void выводВсегоВТаблицуExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Вывод приходных накладных
+
+            // Создаём экземпляр нашего приложения
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            // Создаём экземпляр рабочий книги Excel
+            MicrosoftExcel.Workbook workBook;
+            // Создаём экземпляр листа Excel
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Номер";
+            workSheet.Cells[1, 2] = "Тип техники";
+            workSheet.Cells[1, 3] = "Наименование";
+            workSheet.Cells[1, 4] = "Количество";
+            workSheet.Cells[1, 5] = "Дата создания";
+            workSheet.Cells[1, 6] = "Принял";
+            workSheet.Cells[1, 7] = "Сдал";
+
+
+            int row = 0;
+            foreach(ListViewItem item in InputInvoices.Items)
+            {
+                for (int a = 0; a < 7; a++) {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+
+                row++;
+            }
+
+
+            // Открываем созданный excel-файл
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
+        }
+
+        private void вывестиВсёВТаблицуExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Вывод выходных накладных
+
+            // Создаём экземпляр нашего приложения
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            // Создаём экземпляр рабочий книги Excel
+            MicrosoftExcel.Workbook workBook;
+            // Создаём экземпляр листа Excel
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Номер";
+            workSheet.Cells[1, 2] = "Тип техники";
+            workSheet.Cells[1, 3] = "Наименование";
+            workSheet.Cells[1, 4] = "Количество";
+            workSheet.Cells[1, 5] = "Дата создания";
+            workSheet.Cells[1, 6] = "Принял";
+            workSheet.Cells[1, 7] = "Сдал";
+
+
+            int row = 0;
+            foreach (ListViewItem item in OutputListView.Items)
+            {
+                for (int a = 0; a < 7; a++)
+                {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+
+                row++;
+            }
+
+
+            // Открываем созданный excel-файл
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
         }
     }
 }

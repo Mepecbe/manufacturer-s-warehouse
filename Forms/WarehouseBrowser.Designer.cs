@@ -38,6 +38,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TovarsContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.tovarsContextMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортВТаблицуExcellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroListView1 = new MetroFramework.Controls.MetroListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.InputInvoices = new MetroFramework.Controls.MetroListView();
@@ -88,7 +89,12 @@
             this.transferContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.потвердитьПереводToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.перенестиПереводВАрхивToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выводВExcellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsButton = new MetroFramework.Controls.MetroButton();
+            this.выводВсегоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.TovarsContextMenu.SuspendLayout();
@@ -112,9 +118,10 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 4;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
+            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabControl1.UseSelectable = true;
             // 
             // tabPage1
@@ -171,16 +178,23 @@
             // TovarsContextMenu
             // 
             this.TovarsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tovarsContextMenuToolStripMenuItem});
+            this.tovarsContextMenuToolStripMenuItem,
+            this.экспортВТаблицуExcellToolStripMenuItem});
             this.TovarsContextMenu.Name = "TovarsContextMenu";
-            this.TovarsContextMenu.Size = new System.Drawing.Size(166, 26);
+            this.TovarsContextMenu.Size = new System.Drawing.Size(210, 48);
             // 
             // tovarsContextMenuToolStripMenuItem
             // 
             this.tovarsContextMenuToolStripMenuItem.Name = "tovarsContextMenuToolStripMenuItem";
-            this.tovarsContextMenuToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.tovarsContextMenuToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.tovarsContextMenuToolStripMenuItem.Text = "Создать перевод";
             this.tovarsContextMenuToolStripMenuItem.Click += new System.EventHandler(this.добавитьПереводToolStripMenuItem_Click);
+            // 
+            // экспортВТаблицуExcellToolStripMenuItem
+            // 
+            this.экспортВТаблицуExcellToolStripMenuItem.Name = "экспортВТаблицуExcellToolStripMenuItem";
+            this.экспортВТаблицуExcellToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.экспортВТаблицуExcellToolStripMenuItem.Text = "Экспорт в таблицу Excell";
             // 
             // metroListView1
             // 
@@ -265,10 +279,12 @@
             this.inputInvoicesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавитьПриходнуюНакладнуюToolStripMenuItem,
             this.сдатьНакладнуюToolStripMenuItem,
-            this.перенестиНакладнуюВАрхивToolStripMenuItem});
+            this.перенестиНакладнуюВАрхивToolStripMenuItem,
+            this.выводВсегоВТаблицуExcelToolStripMenuItem,
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem});
             this.inputInvoicesContextMenu.Name = "contextMenuStrip1";
             this.inputInvoicesContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(257, 70);
+            this.inputInvoicesContextMenu.Size = new System.Drawing.Size(268, 114);
             // 
             // добавитьПриходнуюНакладнуюToolStripMenuItem
             // 
@@ -289,6 +305,7 @@
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Name = "перенестиНакладнуюВАрхивToolStripMenuItem";
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Text = "Перенести накладную в архив";
+            this.перенестиНакладнуюВАрхивToolStripMenuItem.Click += new System.EventHandler(this.перенестиНакладнуюВАрхивToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -361,9 +378,11 @@
             this.outputInvoicesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавитьРасходнуюНакладнуюToolStripMenuItem,
             this.СдатьНакладнуюItem,
-            this.ПеренестиВАрхивItem});
+            this.ПеренестиВАрхивItem,
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem,
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem});
             this.outputInvoicesContextMenu.Name = "outputInvoicesContextMenu";
-            this.outputInvoicesContextMenu.Size = new System.Drawing.Size(255, 70);
+            this.outputInvoicesContextMenu.Size = new System.Drawing.Size(273, 136);
             // 
             // добавитьРасходнуюНакладнуюToolStripMenuItem
             // 
@@ -384,6 +403,7 @@
             this.ПеренестиВАрхивItem.Name = "ПеренестиВАрхивItem";
             this.ПеренестиВАрхивItem.Size = new System.Drawing.Size(254, 22);
             this.ПеренестиВАрхивItem.Text = "Перенести накладную в архив";
+            this.ПеренестиВАрхивItem.Click += new System.EventHandler(this.ПеренестиВАрхивItem_Click);
             // 
             // tabPage4
             // 
@@ -539,7 +559,8 @@
             // 
             this.transferContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.потвердитьПереводToolStripMenuItem,
-            this.перенестиПереводВАрхивToolStripMenuItem});
+            this.перенестиПереводВАрхивToolStripMenuItem,
+            this.выводВExcellToolStripMenuItem});
             this.transferContextMenu.Name = "transferContextMenu";
             this.transferContextMenu.Size = new System.Drawing.Size(226, 70);
             // 
@@ -556,6 +577,12 @@
             this.перенестиПереводВАрхивToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.перенестиПереводВАрхивToolStripMenuItem.Text = "Перенести перевод в архив";
             // 
+            // выводВExcellToolStripMenuItem
+            // 
+            this.выводВExcellToolStripMenuItem.Name = "выводВExcellToolStripMenuItem";
+            this.выводВExcellToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.выводВExcellToolStripMenuItem.Text = "Вывод в Excell";
+            // 
             // SettingsButton
             // 
             this.SettingsButton.Location = new System.Drawing.Point(913, 5);
@@ -566,6 +593,32 @@
             this.SettingsButton.UseSelectable = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
+            // выводВсегоВТаблицуExcelToolStripMenuItem
+            // 
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Name = "выводВсегоВТаблицуExcelToolStripMenuItem";
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Text = "Вывод всего в таблицу Excel";
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВсегоВТаблицуExcelToolStripMenuItem_Click);
+            // 
+            // выводВыбранногоВТаблицуExcelToolStripMenuItem
+            // 
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Name = "выводВыбранногоВТаблицуExcelToolStripMenuItem";
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Text = "Вывод выбранного в таблицу Excel";
+            // 
+            // вывестиВсёВТаблицуExcelToolStripMenuItem
+            // 
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Name = "вывестиВсёВТаблицуExcelToolStripMenuItem";
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Text = "Вывести всё в таблицу Excel";
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВсёВТаблицуExcelToolStripMenuItem_Click);
+            // 
+            // вывестиВыбранноеВТаблицуExcelToolStripMenuItem
+            // 
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Name = "вывестиВыбранноеВТаблицуExcelToolStripMenuItem";
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Text = "Вывести выбранное в таблицу Excel";
+            // 
             // WarehouseBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,6 +628,7 @@
             this.Controls.Add(this.metroTabControl1);
             this.Name = "WarehouseBrowser";
             this.Text = "Обозреватель";
+            this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WarehouseBrowser_FormClosing);
             this.Load += new System.EventHandler(this.WarehouseBrowser_Load);
             this.Resize += new System.EventHandler(this.WarehouseBrowser_Resize);
@@ -655,5 +709,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader31;
         private MetroFramework.Controls.MetroContextMenu TovarsContextMenu;
         private System.Windows.Forms.ToolStripMenuItem tovarsContextMenuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem экспортВТаблицуExcellToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выводВExcellToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выводВсегоВТаблицуExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выводВыбранногоВТаблицуExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вывестиВсёВТаблицуExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вывестиВыбранноеВТаблицуExcelToolStripMenuItem;
     }
 }
