@@ -17,11 +17,11 @@ using BDiSUBD.Forms;
 
 namespace BDiSUBD
 {
-    public partial class Form1 : MetroFramework.Forms.MetroForm
+    public partial class Auth : MetroFramework.Forms.MetroForm
     {
         string warehouseId = "";
 
-        public Form1()
+        public Auth()
         {
             InitializeComponent();
         }
@@ -100,7 +100,7 @@ namespace BDiSUBD
                 new WarehouseBrowser(warehouseId, fio).Show();
             }
             else
-                MetroFramework.MetroMessageBox.Show(this, "Подключение не успешно", "Подключение");
+                MetroFramework.MetroMessageBox.Show(this, "Подключение не успешно", "Ошибка");
         }
     }
 }

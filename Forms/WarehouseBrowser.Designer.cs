@@ -118,7 +118,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -382,7 +382,7 @@
             this.вывестиВсёВТаблицуExcelToolStripMenuItem,
             this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem});
             this.outputInvoicesContextMenu.Name = "outputInvoicesContextMenu";
-            this.outputInvoicesContextMenu.Size = new System.Drawing.Size(273, 136);
+            this.outputInvoicesContextMenu.Size = new System.Drawing.Size(273, 114);
             // 
             // добавитьРасходнуюНакладнуюToolStripMenuItem
             // 
@@ -605,6 +605,7 @@
             this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Name = "выводВыбранногоВТаблицуExcelToolStripMenuItem";
             this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
             this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Text = "Вывод выбранного в таблицу Excel";
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВыбранногоВТаблицуExcelToolStripMenuItem_Click);
             // 
             // вывестиВсёВТаблицуExcelToolStripMenuItem
             // 
@@ -618,6 +619,7 @@
             this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Name = "вывестиВыбранноеВТаблицуExcelToolStripMenuItem";
             this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
             this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Text = "Вывести выбранное в таблицу Excel";
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem_Click);
             // 
             // WarehouseBrowser
             // 

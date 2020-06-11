@@ -118,9 +118,7 @@ namespace BDiSUBD.Forms
 
 
 
-
             UpdateCellSize();
-
             conn.Close();
         }
 
@@ -626,7 +624,7 @@ namespace BDiSUBD.Forms
 
         private void вывестиВсёВТаблицуExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Вывод выходных накладных
+            //Вывод расходных накладных
 
             // Создаём экземпляр нашего приложения
             MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
@@ -662,6 +660,80 @@ namespace BDiSUBD.Forms
 
 
             // Открываем созданный excel-файл
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
+        }
+
+        private void выводВыбранногоВТаблицуExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (InputInvoices.SelectedItems.Count == 0) return;
+
+            //Вывод выбранных приходных накладных в таблицу Excel
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            MicrosoftExcel.Workbook workBook;
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Номер";
+            workSheet.Cells[1, 2] = "Тип техники";
+            workSheet.Cells[1, 3] = "Наименование";
+            workSheet.Cells[1, 4] = "Количество";
+            workSheet.Cells[1, 5] = "Дата создания";
+            workSheet.Cells[1, 6] = "Принял";
+            workSheet.Cells[1, 7] = "Сдал";
+
+
+            int row = 0;
+            foreach (ListViewItem item in InputInvoices.SelectedItems)
+            {
+                for (int a = 0; a < 7; a++)
+                {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+                row++;
+            }
+
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
+        }
+
+        private void вывестиВыбранноеВТаблицуExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Вывод выбранных расходных накладных в таблицу Excel
+            if (OutputListView.SelectedItems.Count == 0) return;
+
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            MicrosoftExcel.Workbook workBook;
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Номер";
+            workSheet.Cells[1, 2] = "Тип техники";
+            workSheet.Cells[1, 3] = "Наименование";
+            workSheet.Cells[1, 4] = "Количество";
+            workSheet.Cells[1, 5] = "Дата создания";
+            workSheet.Cells[1, 6] = "Принял";
+            workSheet.Cells[1, 7] = "Сдал";
+
+
+            int row = 0;
+            foreach (ListViewItem item in OutputListView.SelectedItems)
+            {
+                for (int a = 0; a < 7; a++)
+                {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+                row++;
+            }
+
             excelApp.Visible = true;
             excelApp.UserControl = true;
         }

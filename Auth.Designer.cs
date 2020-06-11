@@ -1,6 +1,6 @@
 ﻿namespace BDiSUBD
 {
-    partial class Form1
+    partial class Auth
     {
         /// <summary>
         /// Обязательная переменная конструктора.
