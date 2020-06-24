@@ -35,7 +35,7 @@ namespace BDiSUBD.Forms
 
             {
                 //Заполнение таблицы товаров
-                MySqlDataReader reader = new MySqlCommand($"SELECT * FROM technique;", conn).ExecuteReader();
+                MySqlDataReader reader = new MySqlCommand($"SELECT * FROM technique WHERE Warehouse_ID = '{warehouseId}';", conn).ExecuteReader();
                 while (reader.Read())
                 {
                     ListViewItem item = TovarsListView.Items.Add(reader[2].ToString());
@@ -122,10 +122,7 @@ namespace BDiSUBD.Forms
             conn.Close();
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void tabPage1_Click(object sender, EventArgs e){ }
 
         private void WarehouseBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -156,6 +153,7 @@ namespace BDiSUBD.Forms
 
 
             this.SettingsButton.Location = new Point(this.Size.Width - this.SettingsButton.Width - 80, this.SettingsButton.Location.Y);
+            this.OpenStat.Location = new Point(this.Size.Width - this.SettingsButton.Width - this.OpenStat.Width - 80, this.SettingsButton.Location.Y);
         }
 
         private void добавитьСкладскуюЯчейкуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -497,10 +495,10 @@ namespace BDiSUBD.Forms
                         connection.Open();
 
                         //Обновление ячейки местанохждения товара на складе
-                        new MySqlCommand($"UPDATE technique SET Cell_ID = '{TransferOperations.SelectedItems[0].SubItems[3].Text}' WHERE Warehouse_ID = '{warehouseId}' AND Name = '{TransferOperations.SelectedItems[0].SubItems[0].Text}'", connection).ExecuteNonQuery();
+                        new MySqlCommand($"UPDATE technique SET Cell_ID = '{TransferOperations.SelectedItems[0].SubItems[3].Text}' WHERE Warehouse_ID = '{warehouseId}' AND Cell_Id = '{TransferOperations.SelectedItems[0].SubItems[2].Text}'", connection).ExecuteNonQuery();
 
                         //Удаление операции перевода из таблицы
-                        new MySqlCommand($"DELETE FROM Transfers WHERE Warehouse_ID = '{warehouseId}' AND OutputCell = '{TransferOperations.SelectedItems[0].SubItems[2].Text}' AND InputCell = '{TransferOperations.SelectedItems[0].SubItems[3].Text}'");
+                        new MySqlCommand($"DELETE FROM Transfers WHERE Warehouse_ID = '{warehouseId}' AND OutputCell = '{TransferOperations.SelectedItems[0].SubItems[2].Text}' AND InputCell = '{TransferOperations.SelectedItems[0].SubItems[3].Text}'", connection).ExecuteNonQuery();
 
                         //Обновление ячейки в списке в форме
                         item.SubItems[1].Text = TransferOperations.SelectedItems[0].SubItems[3].Text;
@@ -737,5 +735,79 @@ namespace BDiSUBD.Forms
             excelApp.Visible = true;
             excelApp.UserControl = true;
         }
+
+        private void экспортВТаблицуExcellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Экспорт перечня товаров в таблицу Excel
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            MicrosoftExcel.Workbook workBook;
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Тип";
+            workSheet.Cells[1, 2] = "Складская ячейка";
+            workSheet.Cells[1, 3] = "Наименование";
+            workSheet.Cells[1, 4] = "Количество";
+
+
+            int row = 0;
+            foreach (ListViewItem item in TovarsListView.Items)
+            {
+                for (int a = 0; a < 4; a++)
+                {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+                row++;
+            }
+
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
+        }
+
+        private void вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Вывод информации о складских ячейках в таблицу
+            MicrosoftExcel.Application excelApp = new MicrosoftExcel.Application();
+            MicrosoftExcel.Workbook workBook;
+            MicrosoftExcel.Worksheet workSheet;
+
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (MicrosoftExcel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            int RowOffset = 2;
+            workSheet.StandardWidth = 20;
+            workSheet.Cells[1, 1] = "Идентификатор";
+            workSheet.Cells[1, 2] = "Адрес";
+            workSheet.Cells[1, 3] = "Секция";
+            workSheet.Cells[1, 4] = "Линия";
+            workSheet.Cells[1, 5] = "Стеллаж";
+            workSheet.Cells[1, 6] = "Ярус";
+            workSheet.Cells[1, 7] = "Позиция";
+
+
+            int row = 0;
+            foreach (ListViewItem item in WarehouseCell.Items)
+            {
+                for (int a = 0; a < 7; a++)
+                {
+                    workSheet.Cells[row + RowOffset, a + 1] = item.SubItems[a].Text;
+                }
+                row++;
+            }
+
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            new StatisticsForm().Show();
+        }
+
+        private void metroTabControl1_TabIndexChanged(object sender, EventArgs e){ }
     }
 }

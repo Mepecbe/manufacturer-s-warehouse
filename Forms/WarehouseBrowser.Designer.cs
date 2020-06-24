@@ -53,6 +53,8 @@
             this.добавитьПриходнуюНакладнуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сдатьНакладнуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.перенестиНакладнуюВАрхивToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выводВсегоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.OutputListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -66,6 +68,8 @@
             this.добавитьРасходнуюНакладнуюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.СдатьНакладнуюItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ПеренестиВАрхивItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.WarehouseCell = new MetroFramework.Controls.MetroListView();
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -91,10 +95,7 @@
             this.перенестиПереводВАрхивToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выводВExcellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsButton = new MetroFramework.Controls.MetroButton();
-            this.выводВсегоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выводВыбранногоВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вывестиВсёВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenStat = new MetroFramework.Controls.MetroButton();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.TovarsContextMenu.SuspendLayout();
@@ -118,11 +119,11 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1036, 466);
             this.metroTabControl1.TabIndex = 1;
-            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabControl1.UseSelectable = true;
+            this.metroTabControl1.TabIndexChanged += new System.EventHandler(this.metroTabControl1_TabIndexChanged);
             // 
             // tabPage1
             // 
@@ -181,20 +182,21 @@
             this.tovarsContextMenuToolStripMenuItem,
             this.экспортВТаблицуExcellToolStripMenuItem});
             this.TovarsContextMenu.Name = "TovarsContextMenu";
-            this.TovarsContextMenu.Size = new System.Drawing.Size(210, 48);
+            this.TovarsContextMenu.Size = new System.Drawing.Size(207, 48);
             // 
             // tovarsContextMenuToolStripMenuItem
             // 
             this.tovarsContextMenuToolStripMenuItem.Name = "tovarsContextMenuToolStripMenuItem";
-            this.tovarsContextMenuToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.tovarsContextMenuToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.tovarsContextMenuToolStripMenuItem.Text = "Создать перевод";
             this.tovarsContextMenuToolStripMenuItem.Click += new System.EventHandler(this.добавитьПереводToolStripMenuItem_Click);
             // 
             // экспортВТаблицуExcellToolStripMenuItem
             // 
             this.экспортВТаблицуExcellToolStripMenuItem.Name = "экспортВТаблицуExcellToolStripMenuItem";
-            this.экспортВТаблицуExcellToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.экспортВТаблицуExcellToolStripMenuItem.Text = "Экспорт в таблицу Excell";
+            this.экспортВТаблицуExcellToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.экспортВТаблицуExcellToolStripMenuItem.Text = "Экспорт в таблицу Excel";
+            this.экспортВТаблицуExcellToolStripMenuItem.Click += new System.EventHandler(this.экспортВТаблицуExcellToolStripMenuItem_Click);
             // 
             // metroListView1
             // 
@@ -289,23 +291,37 @@
             // добавитьПриходнуюНакладнуюToolStripMenuItem
             // 
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Name = "добавитьПриходнуюНакладнуюToolStripMenuItem";
-            this.добавитьПриходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.добавитьПриходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Text = "Добавить приходную накладную";
             this.добавитьПриходнуюНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.добавитьПриходнуюНакладнуюToolStripMenuItem_Click);
             // 
             // сдатьНакладнуюToolStripMenuItem
             // 
             this.сдатьНакладнуюToolStripMenuItem.Name = "сдатьНакладнуюToolStripMenuItem";
-            this.сдатьНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.сдатьНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
             this.сдатьНакладнуюToolStripMenuItem.Text = "Сдать накладную";
             this.сдатьНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.сдатьНакладнуюToolStripMenuItem_Click);
             // 
             // перенестиНакладнуюВАрхивToolStripMenuItem
             // 
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Name = "перенестиНакладнуюВАрхивToolStripMenuItem";
-            this.перенестиНакладнуюВАрхивToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.перенестиНакладнуюВАрхивToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Text = "Перенести накладную в архив";
             this.перенестиНакладнуюВАрхивToolStripMenuItem.Click += new System.EventHandler(this.перенестиНакладнуюВАрхивToolStripMenuItem_Click);
+            // 
+            // выводВсегоВТаблицуExcelToolStripMenuItem
+            // 
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Name = "выводВсегоВТаблицуExcelToolStripMenuItem";
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Text = "Вывод всего в таблицу Excel";
+            this.выводВсегоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВсегоВТаблицуExcelToolStripMenuItem_Click);
+            // 
+            // выводВыбранногоВТаблицуExcelToolStripMenuItem
+            // 
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Name = "выводВыбранногоВТаблицуExcelToolStripMenuItem";
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Text = "Вывод выбранного в таблицу Excel";
+            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВыбранногоВТаблицуExcelToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -387,23 +403,37 @@
             // добавитьРасходнуюНакладнуюToolStripMenuItem
             // 
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Name = "добавитьРасходнуюНакладнуюToolStripMenuItem";
-            this.добавитьРасходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.добавитьРасходнуюНакладнуюToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Text = "Добавить расходную накладную";
             this.добавитьРасходнуюНакладнуюToolStripMenuItem.Click += new System.EventHandler(this.добавитьРасходнуюНакладнуюToolStripMenuItem_Click);
             // 
             // СдатьНакладнуюItem
             // 
             this.СдатьНакладнуюItem.Name = "СдатьНакладнуюItem";
-            this.СдатьНакладнуюItem.Size = new System.Drawing.Size(254, 22);
+            this.СдатьНакладнуюItem.Size = new System.Drawing.Size(272, 22);
             this.СдатьНакладнуюItem.Text = "Сдать накладную";
             this.СдатьНакладнуюItem.Click += new System.EventHandler(this.СдатьНакладнуюItem_Click);
             // 
             // ПеренестиВАрхивItem
             // 
             this.ПеренестиВАрхивItem.Name = "ПеренестиВАрхивItem";
-            this.ПеренестиВАрхивItem.Size = new System.Drawing.Size(254, 22);
+            this.ПеренестиВАрхивItem.Size = new System.Drawing.Size(272, 22);
             this.ПеренестиВАрхивItem.Text = "Перенести накладную в архив";
             this.ПеренестиВАрхивItem.Click += new System.EventHandler(this.ПеренестиВАрхивItem_Click);
+            // 
+            // вывестиВсёВТаблицуExcelToolStripMenuItem
+            // 
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Name = "вывестиВсёВТаблицуExcelToolStripMenuItem";
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Text = "Вывести всё в таблицу Excel";
+            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВсёВТаблицуExcelToolStripMenuItem_Click);
+            // 
+            // вывестиВыбранноеВТаблицуExcelToolStripMenuItem
+            // 
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Name = "вывестиВыбранноеВТаблицуExcelToolStripMenuItem";
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Text = "Вывести выбранное в таблицу Excel";
+            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem_Click);
             // 
             // tabPage4
             // 
@@ -478,25 +508,26 @@
             this.добавитьСкладскуюЯчейкуToolStripMenuItem,
             this.удалитьСкладскуюЯчейкуToolStripMenuItem});
             this.WarehouseCellsContextMenu.Name = "WarehouseCellsContextMenu";
-            this.WarehouseCellsContextMenu.Size = new System.Drawing.Size(307, 70);
+            this.WarehouseCellsContextMenu.Size = new System.Drawing.Size(313, 70);
             // 
             // вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem
             // 
             this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Name = "вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem";
-            this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
-            this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Text = "Вывести информацию о ячейке на печать";
+            this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Text = "Вывести информацию о ячейках на печать";
+            this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem.Click += new System.EventHandler(this.вывестиИнформациюОЯчейкеНаПечатьToolStripMenuItem_Click);
             // 
             // добавитьСкладскуюЯчейкуToolStripMenuItem
             // 
             this.добавитьСкладскуюЯчейкуToolStripMenuItem.Name = "добавитьСкладскуюЯчейкуToolStripMenuItem";
-            this.добавитьСкладскуюЯчейкуToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
+            this.добавитьСкладскуюЯчейкуToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.добавитьСкладскуюЯчейкуToolStripMenuItem.Text = "Добавить складскую ячейку";
             this.добавитьСкладскуюЯчейкуToolStripMenuItem.Click += new System.EventHandler(this.добавитьСкладскуюЯчейкуToolStripMenuItem_Click);
             // 
             // удалитьСкладскуюЯчейкуToolStripMenuItem
             // 
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Name = "удалитьСкладскуюЯчейкуToolStripMenuItem";
-            this.удалитьСкладскуюЯчейкуToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
+            this.удалитьСкладскуюЯчейкуToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Text = "Удалить складскую ячейку";
             this.удалитьСкладскуюЯчейкуToolStripMenuItem.Click += new System.EventHandler(this.удалитьСкладскуюЯчейкуToolStripMenuItem_Click);
             // 
@@ -568,7 +599,7 @@
             // 
             this.потвердитьПереводToolStripMenuItem.Name = "потвердитьПереводToolStripMenuItem";
             this.потвердитьПереводToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.потвердитьПереводToolStripMenuItem.Text = "Потвердить перевод";
+            this.потвердитьПереводToolStripMenuItem.Text = "Подтвердить перевод";
             this.потвердитьПереводToolStripMenuItem.Click += new System.EventHandler(this.потвердитьПереводToolStripMenuItem_Click);
             // 
             // перенестиПереводВАрхивToolStripMenuItem
@@ -593,44 +624,27 @@
             this.SettingsButton.UseSelectable = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
-            // выводВсегоВТаблицуExcelToolStripMenuItem
+            // OpenStat
             // 
-            this.выводВсегоВТаблицуExcelToolStripMenuItem.Name = "выводВсегоВТаблицуExcelToolStripMenuItem";
-            this.выводВсегоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.выводВсегоВТаблицуExcelToolStripMenuItem.Text = "Вывод всего в таблицу Excel";
-            this.выводВсегоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВсегоВТаблицуExcelToolStripMenuItem_Click);
-            // 
-            // выводВыбранногоВТаблицуExcelToolStripMenuItem
-            // 
-            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Name = "выводВыбранногоВТаблицуExcelToolStripMenuItem";
-            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Text = "Вывод выбранного в таблицу Excel";
-            this.выводВыбранногоВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.выводВыбранногоВТаблицуExcelToolStripMenuItem_Click);
-            // 
-            // вывестиВсёВТаблицуExcelToolStripMenuItem
-            // 
-            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Name = "вывестиВсёВТаблицуExcelToolStripMenuItem";
-            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Text = "Вывести всё в таблицу Excel";
-            this.вывестиВсёВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВсёВТаблицуExcelToolStripMenuItem_Click);
-            // 
-            // вывестиВыбранноеВТаблицуExcelToolStripMenuItem
-            // 
-            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Name = "вывестиВыбранноеВТаблицуExcelToolStripMenuItem";
-            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Size = new System.Drawing.Size(272, 22);
-            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Text = "Вывести выбранное в таблицу Excel";
-            this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem.Click += new System.EventHandler(this.вывестиВыбранноеВТаблицуExcelToolStripMenuItem_Click);
+            this.OpenStat.Location = new System.Drawing.Point(832, 5);
+            this.OpenStat.Name = "OpenStat";
+            this.OpenStat.Size = new System.Drawing.Size(75, 23);
+            this.OpenStat.TabIndex = 5;
+            this.OpenStat.Text = "Статистика";
+            this.OpenStat.UseSelectable = true;
+            this.OpenStat.Click += new System.EventHandler(this.metroButton1_Click);
             // 
             // WarehouseBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 546);
+            this.Controls.Add(this.OpenStat);
             this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.metroTabControl1);
             this.Name = "WarehouseBrowser";
             this.Text = "Обозреватель";
-            this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WarehouseBrowser_FormClosing);
             this.Load += new System.EventHandler(this.WarehouseBrowser_Load);
             this.Resize += new System.EventHandler(this.WarehouseBrowser_Resize);
@@ -717,5 +731,6 @@
         private System.Windows.Forms.ToolStripMenuItem выводВыбранногоВТаблицуExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вывестиВсёВТаблицуExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вывестиВыбранноеВТаблицуExcelToolStripMenuItem;
+        private MetroFramework.Controls.MetroButton OpenStat;
     }
 }
