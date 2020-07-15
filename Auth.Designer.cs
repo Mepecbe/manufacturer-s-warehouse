@@ -36,6 +36,7 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.Storehouse = new MetroFramework.Controls.MetroComboBox();
+            this.metroLink1 = new MetroFramework.Controls.MetroLink();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,8 +54,7 @@
             this.LoginTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.LoginTextBox.CustomButton.UseSelectable = true;
             this.LoginTextBox.CustomButton.Visible = false;
-            this.LoginTextBox.Lines = new string[] {
-        "val0dko99@mail.ru"};
+            this.LoginTextBox.Lines = new string[0];
             this.LoginTextBox.Location = new System.Drawing.Point(132, 63);
             this.LoginTextBox.MaxLength = 32767;
             this.LoginTextBox.Name = "LoginTextBox";
@@ -66,7 +66,6 @@
             this.LoginTextBox.ShortcutsEnabled = true;
             this.LoginTextBox.Size = new System.Drawing.Size(145, 23);
             this.LoginTextBox.TabIndex = 0;
-            this.LoginTextBox.Text = "val0dko99@mail.ru";
             this.LoginTextBox.UseSelectable = true;
             this.LoginTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.LoginTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -85,8 +84,7 @@
             this.PasswordTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.PasswordTextBox.CustomButton.UseSelectable = true;
             this.PasswordTextBox.CustomButton.Visible = false;
-            this.PasswordTextBox.Lines = new string[] {
-        "1234"};
+            this.PasswordTextBox.Lines = new string[0];
             this.PasswordTextBox.Location = new System.Drawing.Point(132, 109);
             this.PasswordTextBox.MaxLength = 32767;
             this.PasswordTextBox.Name = "PasswordTextBox";
@@ -98,7 +96,6 @@
             this.PasswordTextBox.ShortcutsEnabled = true;
             this.PasswordTextBox.Size = new System.Drawing.Size(145, 23);
             this.PasswordTextBox.TabIndex = 1;
-            this.PasswordTextBox.Text = "1234";
             this.PasswordTextBox.UseSelectable = true;
             this.PasswordTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.PasswordTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -145,18 +142,29 @@
             this.Storehouse.TabIndex = 5;
             this.Storehouse.UseSelectable = true;
             // 
-            // Form1
+            // metroLink1
+            // 
+            this.metroLink1.Location = new System.Drawing.Point(1, 230);
+            this.metroLink1.Name = "metroLink1";
+            this.metroLink1.Size = new System.Drawing.Size(180, 23);
+            this.metroLink1.TabIndex = 6;
+            this.metroLink1.Text = "Настройки подключения";
+            this.metroLink1.UseSelectable = true;
+            this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
+            // 
+            // Auth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 254);
+            this.Controls.Add(this.metroLink1);
             this.Controls.Add(this.Storehouse);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.LoginTextBox);
-            this.Name = "Form1";
+            this.Name = "Auth";
             this.Text = "Авторизация";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
@@ -174,6 +182,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroComboBox Storehouse;
+        private MetroFramework.Controls.MetroLink metroLink1;
     }
 }
 

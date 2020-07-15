@@ -96,6 +96,12 @@
     <Compile Include="Forms\CloseInputInvoice.Designer.cs">
       <DependentUpon>CloseInputInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConnectionSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConnectionSetting.Designer.cs">
+      <DependentUpon>ConnectionSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\AddNewTypeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <EmbeddedResource Include="Forms\CloseInputInvoice.resx">
       <DependentUpon>CloseInputInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConnectionSetting.resx">
+      <DependentUpon>ConnectionSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\AddNewTypeForm.resx">
       <DependentUpon>AddNewTypeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DbCreateSql.txt" />
+    <Content Include="DataBase.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
